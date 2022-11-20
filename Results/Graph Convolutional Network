@@ -1,0 +1,13 @@
+Evaluating GCN model
+Training ROC-AUC Scores: 0.945238
+Training Recall Scores: 0.681203
+Training F1 Scores: 0.613994
+Training Accuracy Scores: 0.948223
+Validation ROC-AUC Scores: 0.715671
+Validation Recall Scores: 0.331218
+Validation F1 Scores: 0.284748
+Validation Accuracy Scores: 0.877501
+Test ROC-AUC Scores: 0.649116
+Test Recall Scores: 0.277435
+Test F1 Scores: 0.217470
+Test Accuracy Scores: 0.869685
