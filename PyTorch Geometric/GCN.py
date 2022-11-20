@@ -140,7 +140,7 @@ for epoch in range(2000):
     if epoch % 100 == 0:
       print(f"Epoch {epoch} | Test Loss {loss}")      
 
-def evaluate():
+def evaluate_test():
   for batch in test_loader:
     batch.to(device)
     pred, embedding = model(batch.x.float(), batch.edge_index, batch.batch) 
@@ -150,9 +150,23 @@ def evaluate():
   acc = Accuracy(num_classes=12)
   return auroc(pred,y).item(), acc(pred,y).item()
 
-auroc, acc = evaluate()
+auroc, acc = evaluate_test()
 
 print(f"ROC-AUC: {auroc}, accuracy: {acc}")
+
+def evaluate_train():
+  for batch in loader:
+    batch.to(device)
+    pred, embedding = model(batch.x.float(), batch.edge_index, batch.batch) 
+    y = torch.where(torch.isnan(batch.y), torch.zeros_like(batch.y), batch.y).long()
+
+  auroc = AUROC(num_classes=12)
+  acc = Accuracy(num_classes=12)
+  return auroc(pred,y).item(), acc(pred,y).item()
+
+auroc_t, acc_t = evaluate_train()
+
+print(f"ROC-AUC: {auroc_t}, accuracy: {acc_t}")
 
 
 test_batch = next(iter(test_loader))
