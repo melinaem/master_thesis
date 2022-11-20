@@ -23,3 +23,4 @@ The required packages to be installed are:
 * torch_sparse
 * torchmetrics
 * pandas
+* seaborn
