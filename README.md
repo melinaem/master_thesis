@@ -12,10 +12,10 @@ This repository is a part of the master's thesis ''. In this thesis, we investig
 ## Getting started
 
 The required packages to be installed are:
-deepchem
-sklearn
-numpy
-tempfile
+* deepchem
+* sklearn
+* numpy
+* tempfile
 rdkit
 torch
 torch_geometric
