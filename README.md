@@ -7,3 +7,19 @@ This repository is a part of the master's thesis ''. In this thesis, we investig
 
 
 ![workflow](https://user-images.githubusercontent.com/62059573/202899885-7ac6b7b3-6791-423f-a312-0f9bd9b7a3f3.png)
+
+
+## Getting started
+
+The required packages to be installed are:
+deepchem
+sklearn
+numpy
+tempfile
+rdkit
+torch
+torch_geometric
+torch_scatter
+torch_sparse
+torchmetrics
+pandas
