@@ -16,10 +16,10 @@ The required packages to be installed are:
 * sklearn
 * numpy
 * tempfile
-rdkit
-torch
-torch_geometric
-torch_scatter
-torch_sparse
-torchmetrics
-pandas
+* rdkit
+* torch
+* torch_geometric
+* torch_scatter
+* torch_sparse
+* torchmetrics
+* pandas
