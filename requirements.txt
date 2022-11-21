@@ -1,0 +1,14 @@
+jupyter
+
+deepchem
+sklearn
+numpy
+tempfile
+rdkit
+torch
+torch_geometric
+torch_scatter
+torch_sparse
+torchmetrics
+pandas
+seaborn
