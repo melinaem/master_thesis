@@ -11,6 +11,8 @@ This repository is a part of the master's thesis ''. In this thesis, we investig
 
 ## Getting started
 
+Python language version 3.9.15 is used. 
+
 ```
 $ pip3 install -r requirements.txt
 $ jupyter notebook
