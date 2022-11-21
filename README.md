@@ -12,18 +12,7 @@ This repository is a part of the master's thesis ''. In this thesis, we investig
 ## Getting started
 
 $ pip3 install -r requirements.txt
+
 $ jupyter notebook
 
-The required packages to be installed are:
-* deepchem
-* sklearn
-* numpy
-* tempfile
-* rdkit
-* torch
-* torch_geometric
-* torch_scatter
-* torch_sparse
-* torchmetrics
-* pandas
-* seaborn
+
