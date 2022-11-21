@@ -11,6 +11,8 @@ This repository is a part of the master's thesis ''. In this thesis, we investig
 
 ## Getting started
 
+gem 'bootstrap'
+
 $ pip3 install -r requirements.txt
 
 $ jupyter notebook
