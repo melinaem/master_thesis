@@ -18,5 +18,5 @@ $ jupyter notebook
 
 ## Content
 
-The `Data` folder contains a CSV-file of the Tox21 data set and the DeepChem folder contains a python file with implementation of machine learning algorithms developed using the DeepChem library. These algorithms include a SVC, a RF, and a GCN. The PyTorch Geometric folder contains a python file with implementation of a GCN using the library PyTorch Geometric. The Results folder contains the runs from the code with results and performances of all models. The Notebook folder contains a Jupyter Notebook of the code.
+The `Data` folder contains a CSV-file of the Tox21 data set and the `DeepChem` folder contains a python file with implementation of machine learning algorithms developed using the DeepChem library. These algorithms include a SVC, a RF, and a GCN. The `PyTorch Geometric` folder contains a python file with implementation of a GCN using the library PyTorch Geometric. The `Results` folder contains the runs from the code with results and performances of all models. The Notebook folder contains a Jupyter `Notebook` of the code.
     
