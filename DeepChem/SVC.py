@@ -86,4 +86,4 @@ for i in np.where(test_dataset.y[:,0]==1): #test og fiks denne
 
 # Show what fragments the model believes contributed towards predicting toxic/non-toxic
 for i in range(len(exps_svc)):
-  exps[i].show_in_notebook(show_table=True, show_all=False)
+  exps_svc[i].show_in_notebook(show_table=True, show_all=False)
