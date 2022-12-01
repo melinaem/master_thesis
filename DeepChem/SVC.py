@@ -69,14 +69,14 @@ def eval_model(my_model):
 model_fn_svc = eval_model(model_svc)
 
 # We want to investigate toxic compounds
-actives = []
+actives_svc = []
 n = len(np.where(test_dataset.y[:,0]==1)[0]) # number of toxic compounds
 
 for i in range(n):
-  actives.append(np.where(test_dataset.y[:,0]==1)[0][i])
+  actives_svc.append(np.where(test_dataset.y[:,0]==1)[0][i])
 
 exps_svc = []
-for active_id in actives:
+for active_id in actives_svc:
   exps_svc.append(explainer.explain_instance(test_dataset.X[active_id], model_fn_svc, num_features=5, top_labels=1))
   
   
