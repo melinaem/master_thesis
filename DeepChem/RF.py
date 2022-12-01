@@ -71,14 +71,14 @@ def eval_model(my_model):
 model_fn_rf = eval_model(model_rf)
 
 # We want to investigate toxic compounds
-actives = []
+actives_rf = []
 n = len(np.where(test_dataset.y[:,0]==1)[0]) # number of toxic compounds
 
 for i in range(n):
-  actives.append(np.where(test_dataset.y[:,0]==1)[0][i])
+  actives_rf.append(np.where(test_dataset.y[:,0]==1)[0][i])
 
 exps_rf = []
-for active_id in actives:
+for active_id in actives_rf:
   exps_rf.append(explainer.explain_instance(test_dataset.X[active_id], model_fn_rf, num_features=5, top_labels=1))
   
   
