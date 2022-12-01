@@ -48,5 +48,44 @@ print("Test F1 Scores: %f" % (test_scores_rf["f1_score"]))
 print("Test Accuracy Scores: %f" % (test_scores_rf["accuracy_score"]))
 
 
-# XAI
+# Apply XAI methods LIME to the RF
 import lime
+from lime.lime_tabular import LimeTabularExplainer 
+from rdkit import Chem
+from rdkit.Chem.Draw import IPythonConsole
+
+feature_names = ["fp_%s"  % x for x in range(1024)]
+explainer = LimeTabularExplainer(train_dataset.X, 
+                                              feature_names=feature_names, 
+                                              categorical_features=feature_names,
+                                              class_names=['not toxic', 'toxic'], 
+                                              discretize_continuous=True)
+
+def eval_model(my_model):
+    def eval_closure(x):
+        ds = dc.data.NumpyDataset(x, n_tasks=12)
+        predictions = my_model.predict(ds)[:,0]
+        return predictions
+    return eval_closure
+    
+model_fn_rf = eval_model(model_rf)
+
+# We want to investigate toxic compounds
+actives = []
+n = len(np.where(test_dataset.y[:,0]==1)[0]) # number of toxic compounds
+
+for i in range(n):
+  actives.append(np.where(test_dataset.y[:,0]==1)[0][i])
+
+exps_rf = []
+for active_id in actives:
+  exps_rf.append(explainer.explain_instance(test_dataset.X[active_id], model_fn_rf, num_features=5, top_labels=1))
+  
+  
+for i in np.where(test_dataset.y[:,0]==1): #test og fiks denne
+  print("Compound id" i)
+  
+
+# Show what fragments the model believes contributed towards predicting toxic/non-toxic
+for i in range(len(exps_rf)):
+  exps_rf[i].show_in_notebook(show_table=True, show_all=False)
