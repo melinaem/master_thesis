@@ -10,9 +10,8 @@ torch_geometric
 torch_scatter
 torch_sparse
 torchmetrics
-pandas
 seaborn
-
+time
 matplotlib
 dalex
 shap
