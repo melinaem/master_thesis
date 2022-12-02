@@ -21,7 +21,6 @@ import warnings
 from torch import autograd
 from torchmetrics import AUROC
 from torchmetrics import Accuracy
-import pandas as pd
 import seaborn as sns
 
 
