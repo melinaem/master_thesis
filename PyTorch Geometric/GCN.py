@@ -173,19 +173,3 @@ auroc, acc = evaluate_test()
 print(f"Test ROC-AUC: {auroc}, Test accuracy: {acc}")
 
 
-
-test_batch = next(iter(test_loader))
-with torch.no_grad():
-    test_batch.to(device)
-    pred, embed = model(test_batch.x.float(), test_batch.edge_index, test_batch.batch) 
-    df = pd.DataFrame()
-    y = torch.where(torch.isnan(test_batch.y), torch.zeros_like(test_batch.y), test_batch.y)
-    df["y_real"] = test_batch.y.tolist()
-    df["y_pred"] = pred.tolist()
-df["y_real"] = df["y_real"].apply(lambda row: row[0])
-df["y_pred"] = df["y_pred"].apply(lambda row: row[0])
-
-plt = sns.scatterplot(data=df, x="y_real", y="y_pred")
-plt.set(xlim=(-0.5, 1.5))
-plt.set(ylim=(-0.05, 0.1))
-plt
