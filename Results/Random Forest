@@ -2,11 +2,11 @@ Evaluating Random Forest
 Training ROC-AUC Scores: 0.997331
 Training Recall Scores: 0.998240
 Training F1 Scores: 0.943986
-Test Accuracy Scores: 0.992271
+Training Accuracy Scores: 0.992271
 Validation ROC-AUC Scores: 0.667072
 Validation Recall Scores: 0.086695
 Validation F1 Scores: 0.140050
-Test Accuracy Scores: 0.928587
+Validation Accuracy Scores: 0.928587
 Test ROC-AUC Scores: 0.649313
 Test Recall Scores: 0.050343
 Test F1 Scores: 0.083974
