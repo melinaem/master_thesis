@@ -1,3 +1,5 @@
+--- Execution time: 0:00:59.716321  ---
+
 Evaluating Random Forest
 Training ROC-AUC Scores: 0.997331
 Training Recall Scores: 0.998240
