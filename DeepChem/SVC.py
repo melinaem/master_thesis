@@ -87,3 +87,36 @@ for i in np.where(test_dataset.y[:,0]==1): #test og fiks denne
 # Show what fragments the model believes contributed towards predicting toxic/non-toxic
 for i in range(len(exps_svc)):
   exps_svc[i].show_in_notebook(show_table=True, show_all=False)
+  
+  
+active_id = np.where(test_dataset.y[:,0]==1)[0][12] 
+
+def fp_mol(mol, fp_length=1024):
+    """
+    returns: dict of <int:list of string>
+        dictionary mapping fingerprint index
+        to list of smile string that activated that fingerprint
+    """
+    d = {}
+    feat = dc.feat.CircularFingerprint(sparse=True, smiles=True, size=1024)
+    retval = feat._featurize(mol)
+    for k, v in retval.items():
+        index = k % 1024
+        if index not in d:
+            d[index] = set()
+        d[index].add(v['smiles'])
+    return d
+# What fragments activated what fingerprints in our active molecule?
+my_fp = fp_mol(Chem.MolFromSmiles(test_dataset.ids[active_id]))
+
+# We can calculate which fragments activate all fingerprint
+# indexes throughout our entire training set
+all_train_fps = {}
+X = train_dataset.X
+ids = train_dataset.ids
+for i in range(len(X)):
+    d = fp_mol(Chem.MolFromSmiles(ids[i]))
+    for k, v in d.items():
+        if k not in all_train_fps:
+            all_train_fps[k] = set()
+        all_train_fps[k].update(v)
