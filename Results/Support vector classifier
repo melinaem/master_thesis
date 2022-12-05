@@ -1,3 +1,6 @@
+--- Execution time: 0:13:26.799364  ---
+
+
 Evaluating Support Vector Classifier
 Training ROC-AUC Scores: 0.996217
 Training Recall Scores: 0.923238
