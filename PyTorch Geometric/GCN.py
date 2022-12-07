@@ -2,6 +2,9 @@ import rdkit
 from rdkit import Chem
 from rdkit.Chem.Draw import IPythonConsole
 from torch_geometric.datasets import MoleculeNet
+import numpy as np
+import time
+from datetime import timedelta
 
 
 data = MoleculeNet(root=".", name="Tox21")
@@ -21,7 +24,6 @@ import warnings
 from torch import autograd
 from torchmetrics import AUROC
 from torchmetrics import Accuracy
-import seaborn as sns
 
 
 
@@ -85,6 +87,10 @@ loader = DataLoader(data[:int(data_size * 0.8)],
 test_loader = DataLoader(data[int(data_size * 0.8):], 
                          batch_size=NUM_GRAPHS_PER_BATCH, shuffle=True)
 
+start_time = time.time()
+
+np.random.seed(32)
+
 def train(data):
     # Enumerate over the data
     for batch in loader:
@@ -131,16 +137,9 @@ def test(data):
         optimizer.step()   
     return loss, embedding
 
-print("Starting testing...")
-losses_test = []
-for epoch in range(2000):
-    loss, h = test(data)
-    losses_test.append(loss)
-    if epoch % 100 == 0:
-      print(f"Epoch {epoch} | Test Loss {loss}")      
 
-from torchmetrics import AUROC
-from torchmetrics import Accuracy
+t = timedelta(seconds= (time.time() - start_time))
+print("--- Execution time: %s  ---" % (t))
 
 
 def evaluate_train():
