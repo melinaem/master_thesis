@@ -2,6 +2,8 @@ import deepchem as dc
 from sklearn.ensemble import RandomForestClassifier
 import numpy as np 
 import tempfile
+import time
+from datetime import timedelta
 
 # Load Tox21 dataset
 tox21_tasks, tox21_datasets, transformers = dc.molnet.load_tox21()
