@@ -43,17 +43,17 @@ class GCN(torch.nn.Module):
     def forward(self, x, edge_index, batch_index):
         # First Conv layer
         hidden = self.initial_conv(x, edge_index)
-        hidden = F.tanh(hidden)
+        hidden = F.leaky_relu(hidden)
 
         # Other Conv layers
         hidden = self.conv1(hidden, edge_index)
-        hidden = F.tanh(hidden)
+        hidden = F.leaky_relu(hidden)
 
         hidden = self.conv2(hidden, edge_index)
-        hidden = F.tanh(hidden)
+        hidden = F.leaky_relu(hidden)
 
         hidden = self.conv3(hidden, edge_index)
-        hidden = F.tanh(hidden)
+        hidden = F.leaky_relu(hidden)
           
         # Global Pooling 
         hidden = torch.cat([gmp(hidden, batch_index), 
@@ -115,24 +115,7 @@ for epoch in range(2000):
     losses.append(loss)
     if epoch % 100 == 0:
       print(f"Epoch {epoch} | Train Loss {loss}")
-      
-def test(data):
-    # Enumerate over the data
-    for batch in test_loader:
-      # Use GPU
-      batch.to(device)  
-      # Reset gradients
-      optimizer.zero_grad() 
-      # Passing the node features and the connection info
-      pred, embedding = model(batch.x.float(), batch.edge_index, batch.batch) 
-      # Calculating the loss and gradients
-      y = torch.where(torch.isnan(batch.y), torch.zeros_like(batch.y), batch.y)
-      loss = loss_fn(pred, y)  
-      if not torch.isnan(loss):   
-        loss.backward()  
-        # Update using the gradients
-        optimizer.step()   
-    return loss, embedding
+
 
 
 t = timedelta(seconds= (time.time() - start_time))
