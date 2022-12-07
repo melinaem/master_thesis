@@ -70,11 +70,15 @@ def eval_model(my_model):
         return predictions
     return eval_closure
     
+# LIME for RF model 
+time_lime2 = time.time()
+
 model_fn_rf = eval_model(model_rf)
 
 # We want to investigate toxic compounds
 actives_rf = []
-n = len(np.where(test_dataset.y[:,0]==1)[0]) # number of toxic compounds
+n = len(np.where(test_dataset.y[:,0]==1)[0])
+#active_id = np.where(test_dataset.y[:,0]==1)[0][1]
 
 for i in range(n):
   actives_rf.append(np.where(test_dataset.y[:,0]==1)[0][i])
@@ -82,8 +86,11 @@ for i in range(n):
 exps_rf = []
 for active_id in actives_rf:
   exps_rf.append(explainer.explain_instance(test_dataset.X[active_id], model_fn_rf, num_features=5, top_labels=1))
-  
-  
+
+t_lime2 = timedelta(seconds= (time.time() - time_lime2))
+print("--- Execution time: %s  ---" % (t_lime2))
+
+
 for i in np.where(test_dataset.y[:,0]==1)[0]: 
   print('Compound nr.: ', i)
   
