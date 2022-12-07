@@ -2,10 +2,17 @@ import deepchem as dc
 from sklearn.svm import SVC
 import numpy as np 
 import tempfile
+import time 
+from datetime import timedelta
 
 # Load Tox21 dataset
 tox21_tasks, tox21_datasets, transformers = dc.molnet.load_tox21()
 train_dataset, valid_dataset, test_dataset = tox21_datasets
+
+
+time_svc = time.time()
+
+np.random.seed(2)
 
 def model_builder_svc(model_dir):
   sklearn_model = SVC(C=1.0, class_weight="balanced", probability=True)
@@ -15,8 +22,11 @@ def model_builder_svc(model_dir):
 model_dir = tempfile.mkdtemp()
 model_svc = dc.models.SingletaskToMultitask(tox21_tasks, model_builder_svc, model_dir)
 
-# Fit trained SVC model
-model_svc.fit(train_dataset)
+# Fit trained model
+model_svc.fit(train_dataset) 
+
+t_svc = timedelta(seconds= (time.time() - time_svc))
+print("--- Execution time: %s  ---" % (t_svc))
 
 
 # Evaluating
@@ -66,11 +76,14 @@ def eval_model(my_model):
         return predictions
     return eval_closure
     
+# LIME for SVC model 
+time_lime = time.time()
+
 model_fn_svc = eval_model(model_svc)
 
 # We want to investigate toxic compounds
 actives_svc = []
-n = len(np.where(test_dataset.y[:,0]==1)[0]) # number of toxic compounds
+n = len(np.where(test_dataset.y[:,0]==1)[0])
 
 for i in range(n):
   actives_svc.append(np.where(test_dataset.y[:,0]==1)[0][i])
@@ -78,11 +91,13 @@ for i in range(n):
 exps_svc = []
 for active_id in actives_svc:
   exps_svc.append(explainer.explain_instance(test_dataset.X[active_id], model_fn_svc, num_features=5, top_labels=1))
-  
-  
-for i in np.where(test_dataset.y[:,0]==1): #test og fiks denne
-  print("Compound id" i)
-  
+
+t_lime = timedelta(seconds= (time.time() - time_lime))
+print("--- Execution time: %s  ---" % (t_lime))
+
+
+for i in np.where(test_dataset.y[:,0]==1)[0]: 
+  print('Compound nr.: ', i, "is a toxic compound")
 
 # Show what fragments the model believes contributed towards predicting toxic/non-toxic
 for i in range(len(exps_svc)):
