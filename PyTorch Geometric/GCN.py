@@ -5,15 +5,6 @@ from torch_geometric.datasets import MoleculeNet
 import numpy as np
 import time
 from datetime import timedelta
-
-
-data = MoleculeNet(root=".", name="Tox21")
-
-
-molecule = Chem.MolFromSmiles(data[0]["smiles"]) #for drawing molecule structures
-
-# Implementing the GCN
-
 import torch
 from torch_geometric.nn import GCNConv
 from torch.nn import Linear
@@ -26,7 +17,13 @@ from torchmetrics import AUROC
 from torchmetrics import Accuracy
 
 
+data = MoleculeNet(root=".", name="Tox21")
 
+
+molecule = Chem.MolFromSmiles(data[0]["smiles"]) #for drawing molecule structures
+
+
+# Implementing the GCN
 
 embedding_size = 64
 class GCN(torch.nn.Module):
