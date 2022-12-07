@@ -19,7 +19,7 @@ Epoch 1600 | Train Loss 0.05522990599274635
 Epoch 1700 | Train Loss 0.03810985013842583
 Epoch 1800 | Train Loss 0.044320881366729736
 Epoch 1900 | Train Loss 0.03670055791735649
---- Execution time: 1:29:09.707351  ---
+--- Execution time: 1:28:12.506980  ---
 
 
 Training ROC-AUC: 0.640666663646698, Training accuracy: 0.9440104365348816
