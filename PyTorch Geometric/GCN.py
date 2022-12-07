@@ -43,17 +43,17 @@ class GCN(torch.nn.Module):
     def forward(self, x, edge_index, batch_index):
         # First Conv layer
         hidden = self.initial_conv(x, edge_index)
-        hidden = F.leaky_relu(hidden)
+        hidden = F.tanh(hidden)
 
         # Other Conv layers
         hidden = self.conv1(hidden, edge_index)
-        hidden = F.leaky_relu(hidden)
+        hidden = F.tanh(hidden)
 
         hidden = self.conv2(hidden, edge_index)
-        hidden = F.leaky_relu(hidden)
+        hidden = F.tanh(hidden)
 
         hidden = self.conv3(hidden, edge_index)
-        hidden = F.leaky_relu(hidden)
+        hidden = F.tanh(hidden)
           
         # Global Pooling 
         hidden = torch.cat([gmp(hidden, batch_index), 
