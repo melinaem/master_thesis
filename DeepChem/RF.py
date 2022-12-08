@@ -9,6 +9,9 @@ from datetime import timedelta
 tox21_tasks, tox21_datasets, transformers = dc.molnet.load_tox21()
 train_dataset, valid_dataset, test_dataset = tox21_datasets
 
+time_rf = time.time()
+
+np.random.seed(23)
 
 def model_builder_rf(model_dir):
   sklearn_model = RandomForestClassifier(class_weight="balanced")
@@ -18,8 +21,11 @@ def model_builder_rf(model_dir):
 model_dir = tempfile.mkdtemp()
 model_rf = dc.models.SingletaskToMultitask(tox21_tasks, model_builder_rf, model_dir)
 
-# Fit trained RF model
+# Fit trained model
 model_rf.fit(train_dataset)
+
+t_rf = timedelta(seconds= (time.time() - time_rf))
+print("--- Execution time: %s  ---" % (t_rf))
 
 # Evaluating
 metric_rocauc = dc.metrics.Metric(dc.metrics.roc_auc_score, np.mean)
@@ -102,8 +108,6 @@ for i in range(len(exps_rf)):
   
 # To further investigate compound with index 22, i.e. feat. nr. 590
 time_lime3 = time.time()
-
-model_fn_rf = eval_model(model_rf)
 
 active_id = np.where(test_dataset.y[:,0]==1)[0][22]
 
